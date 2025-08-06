@@ -1,0 +1,141 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": " SH-.#####",
+ "creation": "2023-04-20 15:23:52.678189",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "from_date",
+  "to_date",
+  "holiday",
+  "applied_for",
+  "department",
+  "designation",
+  "employee",
+  "employee_name",
+  "get_employee_list",
+  "applied_employee",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "applied_for",
+   "fieldtype": "Select",
+   "label": "Applied For",
+   "options": "All Employee\nDepartment\nDesignation\nPerson"
+  },
+  {
+   "depends_on": "eval:doc.applied_for == \"Department\"",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "mandatory_depends_on": "eval:doc.applied_for == \"Department\"",
+   "options": "Department"
+  },
+  {
+   "depends_on": "eval:doc.applied_for == \"Designation\"",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "mandatory_depends_on": "eval:doc.applied_for == \"Designation\"",
+   "options": "Designation"
+  },
+  {
+   "depends_on": "eval:doc.applied_for == \"Person\"",
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "mandatory_depends_on": "eval:doc.applied_for == \"Person\"",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "get_employee_list",
+   "fieldtype": "Button",
+   "label": "Get Employee List"
+  },
+  {
+   "fieldname": "applied_employee",
+   "fieldtype": "Table",
+   "label": "List Of Applied Employee",
+   "options": "Special Holiday Applied",
+   "reqd": 1
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Special Holiday",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "holiday",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Holiday",
+   "options": "Holiday List",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-04-20 15:31:09.631737",
+ "modified_by": "Administrator",
+ "module": "Rasiin Hr",
+ "name": "Special Holiday",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

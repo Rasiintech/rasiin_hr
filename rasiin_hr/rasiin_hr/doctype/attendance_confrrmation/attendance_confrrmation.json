@@ -1,0 +1,69 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-07-27 01:43:19.163579",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "from_date",
+  "to_date",
+  "generate_attendance",
+  "get_employee",
+  "attendance_employee"
+ ],
+ "fields": [
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "generate_attendance",
+   "fieldtype": "Button",
+   "label": "Generate Attendance"
+  },
+  {
+   "fieldname": "get_employee",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Get Employee"
+  },
+  {
+   "fieldname": "attendance_employee",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Attendance Employee",
+   "options": "Attendance Employee"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-07-27 01:48:46.611066",
+ "modified_by": "Administrator",
+ "module": "Rasiin Hr",
+ "name": "Attendance Confrrmation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

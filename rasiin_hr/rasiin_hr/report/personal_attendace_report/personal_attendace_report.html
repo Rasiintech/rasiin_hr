@@ -1,0 +1,60 @@
+<h2 class="text-center">{%= __("Personal Attendance Report") %}</h2>
+
+<h2 class="text-center">
+	{%= frappe.datetime.str_to_user(filters.from_date) %}
+	{%= __("to") %}
+	{%= frappe.datetime.str_to_user(filters.to_date) %}
+</h2>
+
+
+<h2 class="text-center"><strong>{{ filters.employee_name  }}</strong></h2>
+
+<div class="text-right">{{message}}</div>
+<hr>
+
+
+
+<table class="table table-bordered">
+	<thead style="border-bottom: 1px solid #000;">
+		<tr >
+			<th style="width: 10% ; font-weight: 600; font-size: 18px;border: 1px solid #000;">{%= __("Date") %}</th>
+			<th style="width: 10% ; font-weight: 600; font-size: 18px; border: 1px solid #000;">{%= __("Status") %}</th>
+			<th style="width: 10% ; font-weight: 600; font-size: 18px; border: 1px solid #000;">{%= __("Shift") %}</th>
+			<th style="width: 10% ; font-weight: 600; font-size: 18px; border: 1px solid #000;">{%= __("Time In") %}</th>
+			<th style="width: 10% ; font-weight: 600; font-size: 18px; border: 1px solid #000;">{%= __("Time Out") %}</th>
+			<th style="width: 10% ; font-weight: 600; font-size: 18px;border: 1px solid #000;">{%= __("W Hours") %}</th>
+			<th style="width: 10% ; font-weight: 600; font-size: 18px;border: 1px solid #000;">{%= __("Early In") %}</th>
+			<th style="width: 10% ; font-weight: 600; font-size: 18px; border: 1px solid #000;">{%= __("Late In") %}</th>
+			<th style="width: 10% ; font-weight: 600; font-size: 18px; border: 1px solid #000;">{%= __("Early Out") %}</th>
+			<th style="width: 10% ; font-weight: 600; font-size: 18px; border: 1px solid #000;">{%= __("Late Out") %}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for(var i=0, l=data.length; i<l; i++) {  %}
+			<tr style="border-bottom: 1px solid #000;">
+			{% if(data[i].attendance_date) { %}
+				<td style="border: 1px solid #000;"><strong>{%= frappe.datetime.str_to_user(data[i].attendance_date) %}</strong></td>
+				
+				<td style="border: 1px solid #000;"><strong>{%= frappe.query_reports['Personal Attendace Report'].custformatter(data[i].status) %}</strong> </td>
+
+				<td style="border: 1px solid #000;"><strong>{%= data[i].shift %} </strong></td>
+				<td style="border: 1px solid #000;"><strong>{%= data[i].in_time_string %} </strong></td>
+				<td style="border: 1px solid #000;"><strong>{%= data[i].out_time_string %} </strong></td>
+				<td style="border: 1px solid #000;"><strong>{%= data[i].hourse %}</strong> </td>
+				<td style="border: 1px solid #000;"><strong>{%= data[i].early_in %} </strong></td>
+				<td style="border: 1px solid #000;"><strong>{%= data[i].late_in %}</strong> </td>
+				<td style="border: 1px solid #000;"><strong>{%= data[i].early_out %}</strong> </td>
+				<td style="border: 1px solid #000;"><strong>{%= data[i].late_out %} </strong></td>
+				{% } %}	
+				
+
+			
+			
+			</tr>
+		{% } %}
+	</tbody>
+</table>
+<p class="text-right text-muted">Printed On {%= frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string()) %}</p>
+
+
+

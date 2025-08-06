@@ -1,0 +1,224 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+
+:root {
+  --blue--color: hsl(280, 75%, 35%);
+  --white--color: hsl(0, 0%, 100%);
+  --black--color: hsla(0, 0%, 0%, 0);
+  --light--grey: hsl(279, 76%, 88%);
+  --light--white: hsl(272, 82%, 93%);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* MOBILE SCREEN */
+/* .employee__section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: var(--light--white);
+  /* width: min(100%, 1000px); */
+  /* padding: 80px 30px; */
+  /* margin-inline: auto; */
+  /* margin-block-start: 90px; */
+/* } */
+
+.employee__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.employee__head__left {
+  flex: 0.8;
+  color: var(--blue--color);
+}
+
+.employee__head__schedule {
+  text-transform: uppercase;
+}
+
+.employee__head__weeks {
+  text-transform: uppercase;
+  padding-top: 10px;
+  padding-left: 8px;
+}
+
+.line {
+  border: 1px solid var(--blue--color);
+}
+
+.employe__head__right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90px;
+  padding: 6px 8px;
+  background-color: var(--blue--color);
+  color: var(--white--color);
+}
+
+.employee__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.employee__content__head {
+  position: absolute;
+  top: 0;
+  background-color: var(--blue--color);
+  color: var(--white--color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px;
+  gap: 6px;
+  font-size: 6px;
+  width: 100%;
+}
+
+.employee__content__sidebar {
+  /* position: absolute; */
+  background-color: var(--light--grey);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  top: 20px;
+  bottom: 0;
+  padding: 6px 3px;
+  border: 1px solid var(--blue--color);
+  font-size: 8px;
+}
+
+.employee__content__info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 6px 8px;
+  margin-top: 21px;
+  margin-left: 48px;
+  background-color: var(--white--color);
+  font-size: 12px;
+}
+
+.desc {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 5px;
+  border-bottom: 1px solid var(--light--grey);
+}
+
+.desc span {
+  border-right: 1px solid var(--light--grey);
+} 
+
+/* DESKTOP SCREEN*/
+@media (min-width: 64em) {
+  .employee__section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--light--white);
+    /* width: min(100%, 1000px); */
+    /* padding: 80px 40px; */
+    margin-inline: auto;
+    /* margin-block-start: 50px; */
+  }
+
+  .employee__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .employee__head__left {
+    flex: 0.8;
+    color: var(--blue--color);
+  }
+
+  .employee__head__schedule {
+    text-transform: uppercase;
+  }
+
+  .employee__head__weeks {
+    text-transform: uppercase;
+    padding-top: 10px;
+    padding-left: 8px;
+  }
+
+  .line {
+    border: 1px solid var(--blue--color);
+  }
+
+  .employe__head__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90px;
+    padding: 6px 8px;
+    background-color: var(--blue--color);
+    color: var(--white--color);
+  }
+
+  .employee__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    width: 100%;
+  }
+
+  .employee__content__head {
+    position: absolute;
+    top: 0;
+    background-color: var(--blue--color);
+    color: var(--white--color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    gap: 23px;
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .employee__content__head span:not(:first-child) {
+    margin-right: 30px;
+  }
+
+  .employee__content__sidebar {
+    position: absolute;
+    background-color: var(--light--grey);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 29px;
+    bottom: 0;
+    padding: 6px 8px;
+    border: 1px solid var(--blue--color);
+    font-size: 15.8px;
+  }
+
+  .employee__content__info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 6px 8px;
+    margin-top: 31px;
+    margin-left: 100px;
+    background-color: var(--white--color);
+  }
+
+  .desc {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 20px;
+  }
+}

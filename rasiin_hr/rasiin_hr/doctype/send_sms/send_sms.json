@@ -1,0 +1,105 @@
+{
+ "actions": [],
+ "allow_copy": 1,
+ "creation": "2023-07-03 22:39:13.448428",
+ "default_view": "List",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "send_to",
+  "department",
+  "branch",
+  "create_receiver_list",
+  "receiver_list",
+  "column_break9",
+  "message",
+  "total_characters",
+  "total_messages",
+  "send_sms"
+ ],
+ "fields": [
+  {
+   "fieldname": "send_to",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Send To",
+   "options": "All Employee (Active)"
+  },
+  {
+   "depends_on": "eval:doc.send_to=='All Employee (Active)'",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "depends_on": "eval:doc.send_to=='All Employee (Active)'",
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "create_receiver_list",
+   "fieldtype": "Button",
+   "label": "Create Receiver List",
+   "options": "create_receiver_list"
+  },
+  {
+   "fieldname": "receiver_list",
+   "fieldtype": "Code",
+   "label": "Receiver List"
+  },
+  {
+   "fieldname": "column_break9",
+   "fieldtype": "Column Break",
+   "width": "50%"
+  },
+  {
+   "description": "Messages greater than 160 characters will be split into multiple messages",
+   "fieldname": "message",
+   "fieldtype": "Text",
+   "label": "Message",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_characters",
+   "fieldtype": "Int",
+   "label": "Total Characters",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_messages",
+   "fieldtype": "Int",
+   "label": "Total Message(s)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "send_sms",
+   "fieldtype": "Button",
+   "label": "Send SMS"
+  }
+ ],
+ "icon": "fa fa-mobile-phone",
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-08-25 11:20:03.080534",
+ "modified_by": "Administrator",
+ "module": "Rasiin Hr",
+ "name": "Send SMS",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "read_only": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

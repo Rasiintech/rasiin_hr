@@ -1,0 +1,191 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "EMP-COM-.#####",
+ "creation": "2025-07-30 10:49:09.700622",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "employee_type",
+  "component",
+  "column_break_81edh",
+  "from_date",
+  "to_date",
+  "section_break_ew9sj",
+  "employee",
+  "employee_name",
+  "column_break_x8chy",
+  "section_break_ukqeo",
+  "commission_payments",
+  "section_break_mi98h",
+  "total_amount",
+  "column_break_pe9e8",
+  "total_payment",
+  "section_break_ebkzu",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "From Date",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Transaction Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_81edh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "To Date"
+  },
+  {
+   "fieldname": "employee_type",
+   "fieldtype": "Select",
+   "label": "Employee Type",
+   "mandatory_depends_on": "employee_type",
+   "options": "\nDoctor\nEmployee"
+  },
+  {
+   "fieldname": "section_break_ukqeo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_mi98h",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_pe9e8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_payment",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Payment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_ebkzu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Employees Commission",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Employees Commission",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_ew9sj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "depends_on": "employee",
+   "fetch_from": "employee.employee_name",
+   "fetch_if_empty": 1,
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_x8chy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "commission_payments",
+   "fieldtype": "Table",
+   "label": "Commission Payments",
+   "options": "Commission Payments"
+  },
+  {
+   "depends_on": "employee_type",
+   "fieldname": "component",
+   "fieldtype": "Link",
+   "label": "Component",
+   "mandatory_depends_on": "employee_type",
+   "options": "Salary Component"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-07-31 11:33:08.877112",
+ "modified_by": "Administrator",
+ "module": "Rasiin Hr",
+ "name": "Employees Commission",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

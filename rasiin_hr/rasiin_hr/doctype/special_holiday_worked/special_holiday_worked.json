@@ -1,0 +1,332 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "HR-SATT-.####",
+ "creation": "2023-04-28 10:08:20.953716",
+ "default_view": "List",
+ "doctype": "DocType",
+ "document_type": "Setup",
+ "engine": "InnoDB",
+ "field_order": [
+  "attendance_details",
+  "naming_series",
+  "employee",
+  "employee_name",
+  "working_hours",
+  "status",
+  "hourse",
+  "leave_type",
+  "leave_application",
+  "remark",
+  "column_break0",
+  "attendance_date",
+  "company",
+  "department",
+  "attendance_request",
+  "details_section",
+  "shift",
+  "in_time",
+  "out_time",
+  "column_break_18",
+  "late_entry",
+  "early_exit",
+  "amended_from",
+  "late_out",
+  "early_out",
+  "late_in",
+  "early_in",
+  "in_time_string",
+  "out_time_string",
+  "worked_on_holiday",
+  "holiday"
+ ],
+ "fields": [
+  {
+   "fieldname": "attendance_details",
+   "fieldtype": "Section Break",
+   "oldfieldtype": "Section Break",
+   "options": "Simple"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "no_copy": 1,
+   "oldfieldname": "naming_series",
+   "oldfieldtype": "Select",
+   "options": "HR-SATT-.YYYY.-",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_standard_filter": 1,
+   "label": "Employee",
+   "oldfieldname": "employee",
+   "oldfieldtype": "Link",
+   "options": "Employee",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Employee Name",
+   "oldfieldname": "employee_name",
+   "oldfieldtype": "Data",
+   "read_only": 1
+  },
+  {
+   "depends_on": "working_hours",
+   "fieldname": "working_hours",
+   "fieldtype": "Float",
+   "label": "Working Hours",
+   "precision": "1",
+   "read_only": 1
+  },
+  {
+   "default": "Present",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Status",
+   "no_copy": 1,
+   "oldfieldname": "status",
+   "oldfieldtype": "Select",
+   "options": "\nWorked On Eid\nPresent\nAbsent\nOn Leave\nHalf Day\nWork From Home",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "depends_on": "eval:in_list([\"On Leave\", \"Half Day\"], doc.status)",
+   "fieldname": "leave_type",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Leave Type",
+   "mandatory_depends_on": "eval:in_list([\"On Leave\", \"Half Day\"], doc.status)",
+   "oldfieldname": "leave_type",
+   "oldfieldtype": "Link",
+   "options": "Leave Type"
+  },
+  {
+   "fieldname": "leave_application",
+   "fieldtype": "Link",
+   "label": "Leave Application",
+   "no_copy": 1,
+   "options": "Leave Application",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break0",
+   "fieldtype": "Column Break",
+   "oldfieldtype": "Column Break",
+   "width": "50%"
+  },
+  {
+   "fieldname": "attendance_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Attendance Date",
+   "oldfieldname": "attendance_date",
+   "oldfieldtype": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "oldfieldname": "company",
+   "oldfieldtype": "Link",
+   "options": "Company",
+   "remember_last_selected_value": 1,
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department",
+   "read_only": 1
+  },
+  {
+   "fieldname": "attendance_request",
+   "fieldtype": "Link",
+   "label": "Attendance Request",
+   "options": "Attendance Request",
+   "read_only": 1
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "shift",
+   "fieldtype": "Link",
+   "label": "Shift",
+   "options": "Shift Type"
+  },
+  {
+   "depends_on": "shift",
+   "fieldname": "in_time",
+   "fieldtype": "Datetime",
+   "label": "In Time",
+   "read_only": 1
+  },
+  {
+   "depends_on": "shift",
+   "fieldname": "out_time",
+   "fieldtype": "Datetime",
+   "label": "Out Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "late_entry",
+   "fieldtype": "Check",
+   "label": "Late Entry"
+  },
+  {
+   "default": "0",
+   "fieldname": "early_exit",
+   "fieldtype": "Check",
+   "label": "Early Exit"
+  },
+  {
+   "fieldname": "hourse",
+   "fieldtype": "Data",
+   "label": "Hourse",
+   "translatable": 1
+  },
+  {
+   "fieldname": "late_out",
+   "fieldtype": "Data",
+   "label": "Late Out",
+   "translatable": 1
+  },
+  {
+   "fieldname": "early_out",
+   "fieldtype": "Data",
+   "label": "Early Out",
+   "translatable": 1
+  },
+  {
+   "fieldname": "late_in",
+   "fieldtype": "Data",
+   "label": "Late In",
+   "translatable": 1
+  },
+  {
+   "fieldname": "early_in",
+   "fieldtype": "Data",
+   "label": "Early In",
+   "translatable": 1
+  },
+  {
+   "fieldname": "in_time_string",
+   "fieldtype": "Data",
+   "label": "in_time_string",
+   "translatable": 1
+  },
+  {
+   "fieldname": "out_time_string",
+   "fieldtype": "Data",
+   "label": "out_time_string",
+   "translatable": 1
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Data",
+   "label": "Remark",
+   "translatable": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "worked_on_holiday",
+   "fieldtype": "Check",
+   "label": "worked_on_holiday"
+  },
+  {
+   "fieldname": "holiday",
+   "fieldtype": "Link",
+   "label": "holiday",
+   "options": "Holiday List"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Attendance",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "icon": "fa fa-ok",
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-04-28 13:12:33.081816",
+ "modified_by": "Administrator",
+ "module": "Rasiin Hr",
+ "name": "Special Holiday Worked",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "employee,employee_name,attendance_date,status",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "employee_name"
+}

@@ -436,7 +436,7 @@ class PayrollEntry(Document):
 				"account": self.get_salary_component_account(item.salary_component),
 				"amount": amount,
 				"cost_center": cost_center,
-				"reference_type": "Employee Commissions",
+				"reference_type": "Employees Commission",
 				"reference_name": employee_commission,
 			}
 		)
@@ -525,7 +525,7 @@ class PayrollEntry(Document):
 				entry_type="debit",  # Since it's an earning, it's a debit entry
 				accounts=accounts,
 				party=entry.get("employee"),
-				reference_type="Employee Commissions",
+				reference_type="Employees Commission",
 				reference_name=entry.get("reference_name"),
 			)
 		return payable_amount

@@ -14,8 +14,8 @@ class EmployeesCommission(Document):
 				additional_salary.salary_component = self.component
 				additional_salary.payroll_date = self.posting_date
 				additional_salary.overwrite_salary_structure_amount=1
-				additional_salary.ref_doctype = "Employees Commission"
-				additional_salary.ref_docname = self.name
+				additional_salary.custom_reference_document_type = "Employees Commission"
+				additional_salary.custom_reference_document = self.name
 				additional_salary.insert(ignore_permissions=True)
 				additional_salary.submit()
 @frappe.whitelist()

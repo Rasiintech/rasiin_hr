@@ -151,6 +151,24 @@ scheduler_events = {
 	# ],
 }
 
+# Client and Server Script Fixtures
+fixtures = [
+    {
+        "doctype": doctype,
+        "filters": [["module", "=", "HIS"]]
+    }
+    for doctype in [
+        "Client Script",
+        "Server Script",
+        "Custom Field",
+        "Print Format",
+        # "Home Page"  # Uncomment if needed
+    ]
+] + [
+    # {"doctype": "Role Profile"}
+
+]
+
 # Testing
 # -------
 

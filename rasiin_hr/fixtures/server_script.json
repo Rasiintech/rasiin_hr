@@ -1,5 +1,6 @@
 [
  {
+<<<<<<< Updated upstream
   "allow_guest": 1,
   "api_method": "refer",
   "cron_format": null,
@@ -96,6 +97,8 @@
   "script_type": "DocType Event"
  },
  {
+=======
+>>>>>>> Stashed changes
   "allow_guest": 0,
   "api_method": null,
   "cron_format": null,
@@ -104,17 +107,26 @@
   "doctype": "Server Script",
   "doctype_event": "After Submit",
   "event_frequency": "All",
+<<<<<<< Updated upstream
   "modified": "2025-03-03 09:50:51.824474",
   "module": "HIS",
   "name": "create_or_boking",
   "reference_doctype": "Sales Invoice",
   "script": "for i in doc.items:\n    # frappe.msgprint(i.item_code)\n    if frappe.db.exists(\"Clinical Procedure Template\", i.item_code, cache=True):\n    \n        clinical = frappe.get_doc({\n            'doctype': 'OR BOOKING FORM',\n            'patient': doc.patient,\n            'patient_name': doc.patient_name,\n            'procedure': i.item_code,\n            'practitioner': doc.ref_practitioner,\n            \"sex\":i.sex,\n            \"weight\": i.weight,\n            \"diagnosis\": i.diagnosis,\n            \"procedure\": i.item_code,\n            \"surgeon\": i.surgeonh,\n            \"proposed_date_of_surgury\": i.proposed_date_of_surgury,\n            \"surgery_lenght_of_time\" : i.surgery_lenght_of_time,\n            \"company\" : doc.company,\n            # \"appointment_date\" : doc.posting_date\n        })\n        clinical.insert(ignore_permissions = True)",
+=======
+  "modified": "2025-10-18 10:42:54.092522",
+  "module": "Rasiin Hr",
+  "name": "Salary Payments",
+  "reference_doctype": "Salary Payments",
+  "script": "account = []\r\npayable_account = frappe.db.get_value(\"Payroll Entry\", doc.payroll_entry, \"payroll_payable_account\")\r\ncost_center = frappe.db.get_value(\"Payroll Entry\", doc.payroll_entry, \"cost_center\")\r\n\r\nif doc.salary_payments_details:\r\n    # Debit account for total salary payment\r\n    account.append({\r\n        \"account\": doc.account,\r\n        \"credit_in_account_currency\": doc.total_payment,\r\n        \"cost_center\": cost_center\r\n        \r\n    })\r\n\r\n    # Credit payable accounts for each employee\r\n    for i in doc.salary_payments_details:\r\n        if i.payment>0:\r\n            account.append({\r\n                \"account\": payable_account,\r\n                \"party_type\": \"Employee\",\r\n                \"party\": i.employee,\r\n                \"party_name\": i.employee_name,\r\n                \"debit_in_account_currency\": i.payment,\r\n                \"cost_center\": cost_center\r\n            })\r\n\r\n    # Create and submit the Journal Entry\r\n    jou = frappe.get_doc({\r\n        \"doctype\": \"Journal Entry\",\r\n        \"voucher_type\": \"Journal Entry\",\r\n        \"posting_date\": doc.posting_date,\r\n        \"user_remark\": f\"Salary Payments from {doc.from_date} to {doc.to_date}\",\r\n        \"accounts\": account,\r\n        \"salary_payments\": doc.name\r\n    })\r\n    jou.insert()\r\n    jou.submit()\r\n\r\n    # Update paid_amount in salary slips\r\n    for i in doc.salary_payments_details:\r\n        salary_slip = frappe.get_doc(\"Salary Slip\", i.salary_slip)\r\n        salary_slip.paid_amount = float(salary_slip.paid_amount) + float(i.payment)\r\n        salary_slip.save()\r\n",
+>>>>>>> Stashed changes
   "script_type": "DocType Event"
  },
  {
   "allow_guest": 0,
   "api_method": null,
   "cron_format": null,
+<<<<<<< Updated upstream
   "disabled": 1,
   "docstatus": 0,
   "doctype": "Server Script",
@@ -211,11 +223,14 @@
   "allow_guest": 0,
   "api_method": null,
   "cron_format": null,
+=======
+>>>>>>> Stashed changes
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Server Script",
   "doctype_event": "After Cancel",
   "event_frequency": "All",
+<<<<<<< Updated upstream
   "modified": "2025-03-03 09:50:51.794756",
   "module": "HIS",
   "name": "Cancel bill to Employee",
@@ -256,12 +271,23 @@
   "script_type": "API"
  },
  {
+=======
+  "modified": "2025-10-18 10:43:03.776694",
+  "module": "Rasiin Hr",
+  "name": "Cancel Salary Payments",
+  "reference_doctype": "Salary Payments",
+  "script": "if doc.salary_payments_details:\r\n    for i in doc.salary_payments_details:\r\n        salary_slip = frappe.get_doc(\"Salary Slip\", i.salary_slip)\r\n        salary_slip.paid_amount = float(salary_slip.paid_amount) - float(i.payment)\r\n        salary_slip.save()\r\nif doc.docstatus ==2:\r\n    frappe.db.set_value(\"Salary Payments\", doc.name, \"payroll_entry\", \"\")",
+  "script_type": "DocType Event"
+ },
+ {
+>>>>>>> Stashed changes
   "allow_guest": 0,
   "api_method": null,
   "cron_format": null,
   "disabled": 0,
   "docstatus": 0,
   "doctype": "Server Script",
+<<<<<<< Updated upstream
   "doctype_event": "Before Submit",
   "event_frequency": "All",
   "modified": "2025-03-03 09:50:51.690390",
@@ -910,5 +936,15 @@
   "reference_doctype": null,
   "script": "# template = frappe.get_list(\"Lab Test Template\", fields=['name', 'lab_test_rate', 'item'])\r\n# for i in template:\r\n#     item_prices = frappe.get_all(\"Item Price\", filters={\"item_code\": i.item, \"price_list\": \"Standard Selling\"}, fields=[\"name\"])\r\n#     if item_prices:\r\n#         for item_p in item_prices:\r\n#             item_price_doc = frappe.get_doc(\"Item Price\", item_p.name)\r\n#             item_price_doc.price_list_rate = i.lab_test_rate\r\n#             item_price_doc.save()\r\n# template = frappe.get_list(\"Radiology Template\", fields=['name', 'rate', 'item'])\r\n# for i in template:\r\n#     item_prices = frappe.get_all(\"Item Price\", filters={\"item_code\": i.item, \"price_list\": \"Standard Selling\"}, fields=[\"name\"])\r\n#     if item_prices:\r\n#         for item_p in item_prices:\r\n#             item_price_doc = frappe.get_doc(\"Item Price\", item_p.name)\r\n#             item_price_doc.price_list_rate = i.rate\r\n#             item_price_doc.save()\r\n# template = frappe.get_list(\"Healthcare Service Unit Type\", fields=['name', 'rate', 'item'])\r\n# for i in template:\r\n#     item_prices = frappe.get_all(\"Item Price\", filters={\"item_code\": i.item, \"price_list\": \"Standard Selling\"}, fields=[\"name\"])\r\n#     if item_prices:\r\n#         for item_p in item_prices:\r\n#             item_price_doc = frappe.get_doc(\"Item Price\", item_p.name)\r\n#             item_price_doc.price_list_rate = i.rate\r\n#             item_price_doc.save()",
   "script_type": "Scheduler Event"
+=======
+  "doctype_event": "After Cancel",
+  "event_frequency": "All",
+  "modified": "2025-10-18 10:43:38.720689",
+  "module": "Rasiin Hr",
+  "name": "Cancel Salary Payment",
+  "reference_doctype": "Journal Entry",
+  "script": "if doc.salary_payments:\r\n    salary_payment_doc = frappe.get_doc(\"Salary Payments\", doc.salary_payments)\r\n    salary_payment_doc.cancel()",
+  "script_type": "DocType Event"
+>>>>>>> Stashed changes
  }
 ]

@@ -155,11 +155,7 @@ scheduler_events = {
 fixtures = [
     {
         "doctype": doctype,
-<<<<<<< Updated upstream
-        "filters": [["module", "=", "HIS"]]
-=======
         "filters": [["module", "=", "Rasiin Hr"]]
->>>>>>> Stashed changes
     }
     for doctype in [
         "Client Script",

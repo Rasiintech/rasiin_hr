@@ -18,8 +18,7 @@
   "amended_from",
   "suppervisor",
   "suppervisor_name",
-  "notication",
-  "status"
+  "notication"
  ],
  "fields": [
   {
@@ -67,7 +66,7 @@
    "default": "User",
    "fieldname": "suppervisor",
    "fieldtype": "Link",
-   "label": "Suppervisor",
+   "label": "User",
    "options": "User",
    "read_only": 1
   },
@@ -75,7 +74,7 @@
    "fetch_from": "suppervisor.full_name",
    "fieldname": "suppervisor_name",
    "fieldtype": "Data",
-   "label": "Suppervisor Name",
+   "label": "User Full Name",
    "read_only": 1
   },
   {
@@ -99,18 +98,12 @@
    "fieldtype": "Link",
    "label": "Notication",
    "options": "Nofication"
-  },
-  {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "Pending\nApproved\nRejected"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-08-23 15:06:00.556176",
+ "modified": "2025-11-11 10:19:11.608666",
  "modified_by": "Administrator",
  "module": "Rasiin Hr",
  "name": "Leaves Assigment",
@@ -176,18 +169,5 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": [
-  {
-   "color": "Pink",
-   "title": "Pending"
-  },
-  {
-   "color": "Red",
-   "title": "Rejected"
-  },
-  {
-   "color": "Blue",
-   "title": "Approved"
-  }
- ]
+ "states": []
 }

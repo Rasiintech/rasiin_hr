@@ -6,36 +6,12 @@ from frappe.model.document import Document
 
 class LeavesAssigment(Document):
 	def after_insert(self):
-		message = f""""
-			<b> {self.suppervisor_name} </b> is Requesting <b>{self.leave_type}</b> For <b>{self.employee_name}</b> From <b>{self.from_date}</b> To <b>{self.to_date}</b>"""
-		notif = frappe.get_doc({
-			"doctype" : "Nofication",
-			"date" : frappe.utils.getdate(),
-			"time" : frappe.utils.now(),
-			"message" : message,
-			# "for" : 1,
-			# "user" : 
-			
-			"ref_doctype" : self.doctype,
-			"ref_doc" : self.name
-
-		})
-		notif.insert()
-		self.notication = notif.name
-		self.save()
+		pass
+		
 
 	def on_submit(self):
-		if self.notication and self.status != "Rejected":
-			not_doc = frappe.get_doc("Nofication" , self.notication)
-			not_doc.seen = 1
-			not_doc.save()
-		if self.status != "Rejected":
-			self.status = "Approved"
-		if self.status == "Rejected":
-			if self.notication:
-				not_doc = frappe.get_doc("Nofication" , self.notication)
-				not_doc.message = f"Leave Request for Employee <b>{self.employee_name}</b> Rejeted by <b>{frappe.session.user}</b> "
-				not_doc.save()
+		pass
+		
 			
 			# frappe.msgprint("Sumbitted not")
 

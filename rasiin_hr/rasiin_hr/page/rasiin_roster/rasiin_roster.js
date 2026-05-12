@@ -113,8 +113,27 @@ class RasiinRoster {
 					</div>
 
 					<div style="display:flex; gap:8px;">
-						<button class="btn btn-sm btn-default roster-view-btn">View</button>
-						<button class="btn btn-sm btn-primary roster-create-btn">Create</button>
+						<div class="dropdown">
+							<button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+								View
+							</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item roster-view-link" data-doctype="Shift Type">Shift Type</a></li>
+								<li><a class="dropdown-item roster-view-link" data-doctype="Shift Location">Shift Location</a></li>
+								<li><a class="dropdown-item roster-view-link" data-doctype="Shift Assignment">Shift Assignment</a></li>
+								<li><a class="dropdown-item roster-view-link" data-doctype="Shift Schedule">Shift Schedule</a></li>
+								<li><a class="dropdown-item roster-view-link" data-doctype="Shift Schedule Assignment">Shift Schedule Assignment</a></li>
+							</ul>
+						</div>
+
+						<div class="dropdown">
+							<button class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
+								Create
+							</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item roster-create-link" data-doctype="Shift Assignment">Shift Assignment</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="roster-wrapper" style="overflow:auto; border:1px solid #e5e5e5; border-radius:8px; max-height:75vh;"></div>
@@ -324,8 +343,8 @@ class RasiinRoster {
 		this.$body.find(".roster-prev").off("click");
 		this.$body.find(".roster-next").off("click");
 		this.$body.find(".roster-month-title").off("click");
-		this.$body.find(".roster-view-btn").off("click");
-		this.$body.find(".roster-create-btn").off("click");
+		// this.$body.find(".roster-view-btn").off("click");
+		// this.$body.find(".roster-create-btn").off("click");
 		this.$body.find(".roster-cell.empty").off("click");
 		this.$body.find(".roster-cell.assigned").off("click");
 
@@ -392,66 +411,20 @@ class RasiinRoster {
 			d.show();
 		});
 
-		this.$body.find(".roster-view-btn").on("click", (e) => {
+		this.$body.find(".roster-view-link").off("click").on("click", function(e) {
+			e.preventDefault();
 			e.stopPropagation();
 
-			const menu_items = [
-				["Shift Type", () => frappe.set_route("List", "Shift Type")],
-				["Shift Location", () => frappe.set_route("List", "Shift Location")],
-				["Shift Assignment", () => frappe.set_route("List", "Shift Assignment")],
-				["Shift Schedule", () => frappe.set_route("List", "Shift Schedule")],
-				["Shift Schedule Assignment", () => frappe.set_route("List", "Shift Schedule Assignment")]
-			];
-
-			frappe.ui.toolbar.clear_cache();
-
-			let $menu = $(`
-				<ul class="dropdown-menu show" style="position:absolute; z-index:9999;">
-				</ul>
-			`).appendTo("body");
-
-			const offset = $(e.currentTarget).offset();
-			$menu.css({
-				top: offset.top + $(e.currentTarget).outerHeight(),
-				left: offset.left
-			});
-
-			menu_items.forEach(([label, action]) => {
-				$(`<li><a class="dropdown-item" href="#">${__(label)}</a></li>`)
-					.appendTo($menu)
-					.on("click", (ev) => {
-						ev.preventDefault();
-						$menu.remove();
-						action();
-					});
-			});
-
-			$(document).one("click", () => $menu.remove());
+			const doctype = $(this).data("doctype");
+			frappe.set_route("List", doctype);
 		});
 
-		this.$body.find(".roster-create-btn").on("click", (e) => {
+		this.$body.find(".roster-create-link").off("click").on("click", function(e) {
+			e.preventDefault();
 			e.stopPropagation();
 
-			let $menu = $(`
-				<ul class="dropdown-menu show" style="position:absolute; z-index:9999;">
-				</ul>
-			`).appendTo("body");
-
-			const offset = $(e.currentTarget).offset();
-			$menu.css({
-				top: offset.top + $(e.currentTarget).outerHeight(),
-				left: offset.left
-			});
-
-			$(`<li><a class="dropdown-item" href="#">${__("Shift Assignment")}</a></li>`)
-				.appendTo($menu)
-				.on("click", (ev) => {
-					ev.preventDefault();
-					$menu.remove();
-					frappe.new_doc("Shift Assignment");
-				});
-
-			$(document).one("click", () => $menu.remove());
+			const doctype = $(this).data("doctype");
+			frappe.new_doc(doctype);
 		});
 	}
 

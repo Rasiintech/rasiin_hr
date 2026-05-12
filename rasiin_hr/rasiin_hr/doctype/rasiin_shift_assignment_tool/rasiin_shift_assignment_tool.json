@@ -1,0 +1,155 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-12 11:10:44.959559",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "action",
+  "column_break_r4vse",
+  "company",
+  "shift_assignment_details_section",
+  "shift_type",
+  "status",
+  "column_break_cgwt3",
+  "start_date",
+  "end_date",
+  "quick_filters_section",
+  "branch",
+  "department",
+  "column_break_bjzco",
+  "employee_grade",
+  "employment_type",
+  "designation",
+  "select_employees_section",
+  "employees_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "action",
+   "fieldtype": "Select",
+   "label": "Action",
+   "options": "Assign Shift"
+  },
+  {
+   "fieldname": "column_break_r4vse",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "shift_assignment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Shift Assignment Details"
+  },
+  {
+   "fieldname": "shift_type",
+   "fieldtype": "Link",
+   "label": "Shift Type",
+   "options": "Shift Type"
+  },
+  {
+   "description": "When set to 'Inactive', employees with conflicting active shifts will not be excluded.",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nInactive"
+  },
+  {
+   "fieldname": "column_break_cgwt3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Shift Requests ending before this date will be excluded.",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "description": "Shift Requests starting after this date will be excluded.",
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "quick_filters_section",
+   "fieldtype": "Section Break",
+   "label": "Quick Filters"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "column_break_bjzco",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee_grade",
+   "fieldtype": "Link",
+   "label": "Employee Grade",
+   "options": "Employee Grade"
+  },
+  {
+   "fieldname": "employment_type",
+   "fieldtype": "Link",
+   "label": "Employment Type",
+   "options": "Employment Type"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "select_employees_section",
+   "fieldtype": "Section Break",
+   "label": "Select Employees"
+  },
+  {
+   "fieldname": "employees_html",
+   "fieldtype": "HTML",
+   "label": "Employees HTML"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-05-12 11:28:14.447762",
+ "modified_by": "Administrator",
+ "module": "Rasiin Hr",
+ "name": "Rasiin Shift Assignment Tool",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

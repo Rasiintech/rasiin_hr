@@ -97,6 +97,7 @@ doctype_list_js = {"Employee" : "public/js/employee_list.js"}
 override_doctype_class = {
 	"Shift Type": "rasiin_hr.overides.shift_type.CustomShiftType",
     "Payroll Entry" : "rasiin_hr.overides.payroll_entry.PayrollEntry",
+	"Employee Checkin": "rasiin_hr.overides.employee_checkin.CustomEmployeeCheckin",
 }
 
 # Document Events
@@ -114,7 +115,9 @@ doc_events = {
 	# },
 	"Salary Slip" :{
 		"before_submit": "rasiin_hr.api.inc_dec_salary.inc_dec_salary"
-	}
+	},
+    "Attendance": {"before_insert": "rasiin_hr.overides.attendance.set_shift_from_roster"},
+
 }
 
 # Scheduled Tasks

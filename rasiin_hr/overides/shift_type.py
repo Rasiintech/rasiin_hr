@@ -7,6 +7,7 @@
 #   - absent marking runs once per employee
 #   - one punch: status from Rasiin HR Settings > Single Punch Status (Absent or Half Day)
 #   - more punches: the Absent threshold is checked before Half Day
+#   - can be run for selected employees and dates only (Attendance list > Attendance Tools)
 # Holidays come only from the Holiday List. No special cases for volunteers, Day Off,
 # Two Date Shift, Full or Special Holiday: every employee follows the same rules.
 
@@ -14,7 +15,7 @@ import itertools
 from datetime import datetime, timedelta
 
 import frappe
-from frappe.utils import add_days, cint, get_datetime, getdate, to_timedelta
+from frappe.utils import add_days, cint, get_datetime, getdate, now_datetime, to_timedelta
 
 from erpnext.setup.doctype.employee.employee import get_holiday_list_for_employee
 from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
@@ -67,19 +68,45 @@ def shift_bounds(shift_type, day):
 
 class CustomShiftType(ShiftType):
     @frappe.whitelist()
-    def process_auto_attendance(self):
-        if (not cint(self.enable_auto_attendance) or not self.process_attendance_after
-                or not self.last_sync_of_checkin):
+    def process_auto_attendance(self, employees=None, from_date=None, to_date=None):
+        """Without arguments (scheduler / Mark Attendance button): everyone since Process Attendance After.
+        With employees + from_date/to_date: only those employees and dates (Attendance Tools)."""
+        if isinstance(employees, str):
+            employees = frappe.parse_json(employees)
+        manual = bool(employees)
+
+        if not cint(self.enable_auto_attendance):
+            return
+        if not manual and (not self.process_attendance_after or not self.last_sync_of_checkin):
             return
 
+        if manual:
+            # explicit run: process every shift that has finished by now
+            start_day = getdate(from_date)
+            end_day = min(getdate(to_date or from_date), getdate())
+            cutoff = now_datetime()
+        else:
+            start_day = getdate(self.process_attendance_after)
+            end_day = None
+            cutoff = get_datetime(self.last_sync_of_checkin)
+
         # 1. punches -> attendance
-        logs = frappe.db.get_list("Employee Checkin", fields="*", order_by="employee,time", filters={
-            "skip_auto_attendance": 0,
-            "attendance": ("is", "not set"),
-            "time": (">=", self.process_attendance_after),
-            "shift_actual_end": ("<", self.last_sync_of_checkin),
-            "shift": self.name,
-        })
+        filters = [
+            ["skip_auto_attendance", "=", 0],
+            ["attendance", "is", "not set"],
+            ["shift_actual_end", "<", cutoff],
+            ["shift", "=", self.name],
+        ]
+        if manual:
+            filters += [
+                ["employee", "in", employees],
+                ["shift_actual_start", ">=", datetime.combine(start_day, datetime.min.time())],
+                ["shift_actual_start", "<", datetime.combine(add_days(end_day, 1), datetime.min.time())],
+            ]
+        else:
+            filters.append(["time", ">=", self.process_attendance_after])
+
+        logs = frappe.db.get_list("Employee Checkin", fields="*", order_by="employee,time", filters=filters)
         for key, group in itertools.groupby(logs, key=lambda x: (x["employee"], x["shift_actual_start"])):
             single_shift_logs = list(group)
             frappe.db.savepoint("jsh_att")
@@ -92,9 +119,12 @@ class CustomShiftType(ShiftType):
                 frappe.log_error(frappe.get_traceback(), f"Attendance from punches: {key[0]} / {self.name}")
 
         # 2. absents, once per employee
-        for employee in self.get_assigned_employee():
+        assigned = self.get_assigned_employee(start_day if manual else None)
+        if manual:
+            assigned = [e for e in assigned if e in set(employees)]
+        for employee in assigned:
             try:
-                self.mark_absent_for_dates_with_no_attendance(employee)
+                self.mark_absent_for_dates_with_no_attendance(employee, start_day if manual else None, end_day, cutoff)
             except Exception:
                 frappe.log_error(frappe.get_traceback(), f"Absent marking: {employee} / {self.name}")
 
@@ -107,7 +137,7 @@ class CustomShiftType(ShiftType):
         return tuple(result)
 
     def get_assigned_employee(self, from_date=None, consider_default_shift=True):
-        """Everyone who could be on this shift since Process Attendance After."""
+        """Everyone who could be on this shift since Process Attendance After (or from_date)."""
         since = getdate(from_date or self.process_attendance_after)
         employees = set(frappe.get_all("Shift Assignment", pluck="employee", filters={
             "shift_type": self.name, "docstatus": 1, "status": "Active"},
@@ -121,15 +151,20 @@ class CustomShiftType(ShiftType):
         active = set(frappe.get_all("Employee", pluck="name", filters={"status": "Active"}))
         return list(employees & active)
 
-    def mark_absent_for_dates_with_no_attendance(self, employee):
+    def mark_absent_for_dates_with_no_attendance(self, employee, from_date=None, to_date=None, cutoff=None):
         emp = frappe.db.get_value("Employee", employee,
             ["date_of_joining", "relieving_date", "creation", "default_shift", "company"], as_dict=True)
-        day = getdate(self.process_attendance_after)
+        last_sync = get_datetime(cutoff or self.last_sync_of_checkin)
+
+        day = getdate(from_date or self.process_attendance_after)
         joined = getdate(emp.date_of_joining or emp.creation)
         if joined > day:
             day = joined
-        last_sync = get_datetime(self.last_sync_of_checkin)
-        end = min(getdate(last_sync), getdate(add_days(getdate(), -1)))
+
+        if to_date:  # manual run: up to the chosen date (today at most)
+            end = min(getdate(to_date), getdate())
+        else:        # scheduler: up to yesterday / last sync
+            end = min(getdate(last_sync), getdate(add_days(getdate(), -1)))
         if emp.relieving_date:
             end = min(end, getdate(emp.relieving_date))
         holiday_list = self.holiday_list or get_holiday_list_for_employee(employee, False)

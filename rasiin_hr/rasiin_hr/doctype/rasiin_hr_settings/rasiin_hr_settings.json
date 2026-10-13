@@ -1,0 +1,50 @@
+{
+ "actions": [],
+ "creation": "2026-10-13 19:21:04.837909",
+ "default_view": "List",
+ "doctype": "DocType",
+ "document_type": "Other",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "shift_settings_section",
+  "single_punch_status"
+ ],
+ "fields": [
+  {
+   "fieldname": "shift_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Shift Settings"
+  },
+  {
+   "default": "Absent",
+   "fieldname": "single_punch_status",
+   "fieldtype": "Select",
+   "label": "Single Punch Status",
+   "options": "Absent\nHalf Day"
+  }
+ ],
+ "icon": "fa fa-cog",
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-10-13 19:21:04.837909",
+ "modified_by": "Administrator",
+ "module": "Rasiin Hr",
+ "name": "Rasiin HR Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "ASC",
+ "states": [],
+ "track_changes": 1
+}

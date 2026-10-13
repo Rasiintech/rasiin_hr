@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "logo",
- "modified": "2026-04-25 08:43:14.328176",
+ "modified": "2026-10-06 11:10:17.201276",
  "modified_by": "Administrator",
  "module": "Rasiin Hr",
  "name": "Employee List Report",
@@ -31,6 +31,9 @@
   },
   {
    "role": "All"
+  },
+  {
+   "role": "Auditor"
   }
  ]
 }

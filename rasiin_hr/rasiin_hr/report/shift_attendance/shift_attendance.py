@@ -14,7 +14,16 @@ def execute(filters=None):
     if filters.get("show_off_days") and not (filters.get("status") or filters.get("late_entry") or filters.get("early_exit")):
         data = sorted(data + get_off_days(filters),
                       key=lambda r: (str(r.attendance_date), r.department or "", r.employee_name or ""))
+    data = restrict_to_permitted(data)
     return get_columns(), data, None, get_chart(data), get_summary(data)
+
+
+def restrict_to_permitted(data):
+    # HR sees everyone; anyone else (HOD) only the employees User Permissions allow
+    if {"System Manager", "HR Manager", "HR User"} & set(frappe.get_roles()):
+        return data
+    allowed = set(frappe.get_list("Employee", pluck="name", limit_page_length=0))
+    return [r for r in data if r.employee in allowed]
 
 
 def get_columns():

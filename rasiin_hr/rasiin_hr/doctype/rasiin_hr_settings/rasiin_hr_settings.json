@@ -8,7 +8,8 @@
  "engine": "InnoDB",
  "field_order": [
   "shift_settings_section",
-  "single_punch_status"
+  "single_punch_status",
+  "skip_employees_without_biometric_id"
  ],
  "fields": [
   {
@@ -22,12 +23,18 @@
    "fieldtype": "Select",
    "label": "Single Punch Status",
    "options": "Absent\nHalf Day"
+  },
+  {
+   "default": "0",
+   "fieldname": "skip_employees_without_biometric_id",
+   "fieldtype": "Check",
+   "label": "Skip employees without Biometric ID"
   }
  ],
  "icon": "fa fa-cog",
  "issingle": 1,
  "links": [],
- "modified": "2026-10-13 19:21:04.837909",
+ "modified": "2026-11-03 05:55:50.170347",
  "modified_by": "Administrator",
  "module": "Rasiin Hr",
  "name": "Rasiin HR Settings",

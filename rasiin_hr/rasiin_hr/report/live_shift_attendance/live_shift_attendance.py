@@ -1,6 +1,3 @@
-# Copyright (c) 2026, Rasiin and contributors
-# For license information, please see license.txt
-
 # Live Shift Attendance
 #
 # Who is on duty right now, who hasn't arrived, who left early, who missed a punch,
@@ -21,7 +18,7 @@ import frappe
 from frappe import _
 from frappe.utils import add_days, cint, date_diff, flt, getdate, now_datetime
 
-from rasiin_hr.overides.shift_type import has_legacy_roster, shift_bounds
+from rasiin_hr.overides.shift_type import has_legacy_roster, shift_bounds, skip_without_biometric_id
 
 MAX_DAYS = 31
 OFF_SHIFT_NAMES = {"free", "off", "day off", "off day"}
@@ -70,6 +67,8 @@ def execute(filters=None):
 def get_employees(f):
 	meta = frappe.get_meta("Employee")
 	emp_filters = [["status", "=", "Active"]]
+	if skip_without_biometric_id():  # same rule as auto attendance
+		emp_filters.append(["attendance_device_id", "is", "set"])
 	if f.company:
 		emp_filters.append(["company", "=", f.company])
 	for field in ("department", "designation", "branch", "employment_type", "grade", "gender"):

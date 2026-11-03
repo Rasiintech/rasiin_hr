@@ -46,6 +46,16 @@ def has_legacy_roster():
     return frappe.local.cache["jsh_legacy_roster"]
 
 
+def skip_without_biometric_id():
+    """Rasiin HR Settings > Skip employees without Biometric ID.
+    On: employees with an empty Attendance Device ID (board, managers who don't punch)
+    get no automatic attendance."""
+    try:
+        return cint(frappe.db.get_single_value("Rasiin HR Settings", "skip_employees_without_biometric_id"))
+    except Exception:
+        return 0
+
+
 def single_punch_status():
     """Rasiin HR Settings > Single Punch Status: 'Absent' (default) or 'Half Day'."""
     try:
@@ -148,7 +158,10 @@ class CustomShiftType(ShiftType):
         if consider_default_shift:
             employees |= set(frappe.get_all("Employee", pluck="name",
                                             filters={"default_shift": self.name, "status": "Active"}))
-        active = set(frappe.get_all("Employee", pluck="name", filters={"status": "Active"}))
+        emp_filters = {"status": "Active"}
+        if skip_without_biometric_id():
+            emp_filters["attendance_device_id"] = ["is", "set"]
+        active = set(frappe.get_all("Employee", pluck="name", filters=emp_filters))
         return list(employees & active)
 
     def mark_absent_for_dates_with_no_attendance(self, employee, from_date=None, to_date=None, cutoff=None):
